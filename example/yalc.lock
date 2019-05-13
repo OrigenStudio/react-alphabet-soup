@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "react-alphabet-soup": {
+      "signature": "24ebf7e846951b67ce9ff4c7208e8fcb",
+      "file": true
+    }
+  }
+}
