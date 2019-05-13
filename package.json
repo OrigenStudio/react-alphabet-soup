@@ -1,5 +1,5 @@
 {
-  "name": "generator-nod",
+  "name": "react-alphabet-soup",
   "version": "0.0.1",
   "description": "My node module",
   "license": "MIT",
@@ -28,6 +28,7 @@
     "build": "babel src -d dist",
     "preversion": "npm run lint && npm test && npm run build",
     "version": "standard-changelog && git add CHANGELOG.md",
+    "prepublish": "yarn build",
     "postpublish": "git push origin master --follow-tags"
   },
   "husky": {
@@ -44,7 +45,9 @@
   "keywords": [
     "generator-nod"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "units-css": "0.4.0"
+  },
   "devDependencies": {
     "@babel/cli": "7.2.3",
     "@babel/core": "7.3.4",
@@ -73,7 +76,6 @@
     "standard-changelog": "2.0.7"
   },
   "peerDependencies": {
-    "@material-ui/core": "3.9.3",
     "react": "16.8.6",
     "react-dom": "16.8.6"
   }
