@@ -46,6 +46,10 @@
     "generator-nod"
   ],
   "dependencies": {
+    "d3-delaunay": "4.1.5",
+    "d3-polygon": "1.0.5",
+    "lodash": "4.17.11",
+    "recompose": "0.30.0",
     "units-css": "0.4.0"
   },
   "devDependencies": {
@@ -76,6 +80,7 @@
     "standard-changelog": "2.0.7"
   },
   "peerDependencies": {
+    "@material-ui/core": "3.9.3",
     "react": "16.8.6",
     "react-dom": "16.8.6"
   }
