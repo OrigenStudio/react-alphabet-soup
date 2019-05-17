@@ -226,18 +226,29 @@ It'll automatically run `test`, `lint`, `docs`, `build`, generate `CHANGELOG.md`
 
 #### Table of Contents
 
--   [index](#index)
+-   [getCenters](#getcenters)
     -   [Parameters](#parameters)
 
-### index
+### getCenters
 
-This function says hello.
+This is a function that calculates a set of points evenly distributed in a defined space.
+It uses the Lloyd's relaxation on a Voronoi diagram to distribute the points.
 
 #### Parameters
 
--   `name`  Some name to say hello for.
+-   `numberOfCenters` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** the number of points that need to be distributed in the space.
+-   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object with options (optional, default `{}`)
+    -   `options.width` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of the space (optional, default `100`)
+    -   `options.height` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of the space (optional, default `100`)
+    -   `options.maxIterations` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maximum number of iterations that the Lloyd's relaxation will run through.
+        More iterations mean a more optimal solution, however it can take a lot more time. Less iteration generate less optimal solutions. (optional, default `20`)
+    -   `options.acceptableError` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** error that if achieved between iterations the relaxation process will stop, even if the iterations are not completed.
+        Bigger error with compute results faster. (optional, default `1e-6`)
+    -   `options.sorting` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** sorting applied to the generated points. 'none' no sorting applied. 'sortByX' sort ascending points using X.
+        'sortByY' sort ascending points using Y. 'costFunction' sorts points using a cost function like `x + costFunctionYWeight * y`. (optional, default `'none'`)
+    -   `options.costFunctionYWeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** weight applied to Y in the sorting cost function if sorting='costFunction'. (optional, default `1`)
 
-Returns **any** The hello.
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{x: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)}>>** returns a Promise that when resolved returns an array with the points positions
 
 ## License
 
