@@ -226,8 +226,29 @@ It'll automatically run `test`, `lint`, `docs`, `build`, generate `CHANGELOG.md`
 
 #### Table of Contents
 
--   [getCenters](#getcenters)
+-   [createStyles](#createstyles)
     -   [Parameters](#parameters)
+-   [getCenters](#getcenters)
+    -   [Parameters](#parameters-1)
+-   [getCharYPos](#getcharypos)
+    -   [Parameters](#parameters-2)
+-   [measureText](#measuretext)
+    -   [Parameters](#parameters-3)
+
+### createStyles
+
+Generates the styles for the wrapper and each of the text characters for the animation to happen.
+
+#### Parameters
+
+-   `text` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text to be rendered. It is used to generate a style for each character.
+-   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object with options (optional, default `{}`)
+    -   `options.fontSize` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontSize of the text when the user hovers it. (optional, default `'20px'`)
+    -   `options.lineHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** lineHeight of the text when the user hovers it. (optional, default `1.3`)
+    -   `options.fontFamily` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontFamily of the text. (optional, default `'Georgia'`)
+    -   `options.charCenters` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{x: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)}>** position of the characters before the user hovers them. (optional, default `undefined`)
+
+Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
 
 ### getCenters
 
@@ -249,6 +270,36 @@ It uses the Lloyd's relaxation on a Voronoi diagram to distribute the points.
     -   `options.costFunctionYWeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** weight applied to Y in the sorting cost function if sorting='costFunction'. (optional, default `1`)
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{x: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)}>>** returns a Promise that when resolved returns an array with the points positions
+
+### getCharYPos
+
+This function return the CSS `left` parameter for the characters of the input index.
+Currently the makes the text to be centered on the space.
+
+#### Parameters
+
+-   `index` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the characters to calculate the CSS `left` parameter
+-   `totalWidth` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total width of the text to render
+-   `partialWidths` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+-   `partialWidth` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** array with the width of each character sorted by index position.
+
+### measureText
+
+Measures the widths and the height of a text
+
+#### Parameters
+
+-   `text` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** text to be measured or array with multiple lines of text.
+-   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object with options (optional, default `{}`)
+    -   `options.fontSize` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontSize of the text. (optional, default `'20px'`)
+    -   `options.lineHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** lineHeight of the text. (optional, default `1.3`)
+    -   `options.fontFamily` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontFamily of the text. (optional, default `'Georgia'`)
+    -   `options.fontWeight` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontWeight of the text. (optional, default `400`)
+    -   `options.fontStyle` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontStyle of the text. (optional, default `'normal'`)
+    -   `options.canvas` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** canvas used to render the text to measure. If none provided, one us created and used. (optional, default `createdbydefault`)
+
+Returns **{text: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), width: {value: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), units: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}, height: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}** returns an object with the width, height and the text or longest text in case
+of multiline.
 
 ## License
 
