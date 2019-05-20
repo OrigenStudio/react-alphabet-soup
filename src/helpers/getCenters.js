@@ -3,8 +3,9 @@ import { Delaunay } from 'd3-delaunay';
 import { polygonCentroid } from 'd3-polygon';
 import times from 'lodash/times';
 import sortBy from 'lodash/sortBy';
+import rejectUndefined from './rejectUndefined';
 
-type Options = {
+export type Options = {
   width?: number,
   height?: number,
   maxIterations?: number,
@@ -14,8 +15,8 @@ type Options = {
 };
 
 const defaultOptions = {
-  width: 500,
-  height: 500,
+  width: 100,
+  height: 100,
   maxIterations: 20,
   acceptableError: 1e-6,
   sorting: 'none',
@@ -61,8 +62,9 @@ const getCenters = async (
     costFunctionYWeight,
   } = {
     ...defaultOptions,
-    ...options,
+    ...rejectUndefined(options),
   };
+
   let centers = getInitialPoints(numberOfCenters, width, height);
   const error = { X: width, Y: height }; // initialize error with a big number
 
@@ -91,9 +93,7 @@ const getCenters = async (
       const newCenterY = center[1] + deltaY;
       return [newCenterX, newCenterY];
     });
-    console.log('====================================');
-    console.log(centers, newCenters, error);
-    console.log('====================================');
+
     centers = newCenters;
   }
   // Organize each point in an object with x and y keys.
