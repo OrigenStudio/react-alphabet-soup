@@ -3,6 +3,8 @@ import measureText from './measureText';
 import rejectUndefined from './rejectUndefined';
 import getCharYPos from './getCharYPos';
 import {
+  DEFAULT_WIDTH,
+  DEFAULT_HEIGHT,
   DEFAULT_FONT_SIZE,
   DEFAULT_FONT_FAMILY,
   DEFAULT_LINE_HEIGHT,
@@ -15,6 +17,8 @@ export const TRANSITION_PROGRESSIVE = 'progressive';
 export const TRANSITION_RANDOM = 'random';
 
 export type Options = {
+  width?: number,
+  height?: number,
   fontSize?: string,
   lineHeight?: number,
   fontFamily?: string,
@@ -24,6 +28,8 @@ export type Options = {
 };
 
 export const defaultOptions = {
+  width: DEFAULT_WIDTH,
+  height: DEFAULT_HEIGHT,
   fontSize: DEFAULT_FONT_SIZE,
   lineHeight: DEFAULT_LINE_HEIGHT,
   fontFamily: DEFAULT_FONT_FAMILY,
@@ -68,6 +74,8 @@ const createStyles = (
   options?: Options = defaultOptions,
 ): Function => (): { [string]: {} } => {
   const {
+    width,
+    height,
     fontSize,
     lineHeight,
     fontFamily,
@@ -78,6 +86,7 @@ const createStyles = (
     ...defaultOptions,
     ...rejectUndefined(options),
   };
+  console.log(width, height);
 
   const textAsArray = text.split('');
   const textWidth = measureText(text, { fontFamily, fontSize, lineHeight })
@@ -105,8 +114,8 @@ const createStyles = (
             transitionSpeedMultiplier,
             index,
           ),
-          left: `${charCenters[index].x}%`,
-          top: `${charCenters[index].y}%`,
+          left: `${(charCenters[index].x / width) * 100}%`,
+          top: `${(charCenters[index].y / height) * 100}%`,
           fontSize: '50px',
           transform: `rotate(${Math.random() * 90 - Math.random() * 90}deg)`,
         };

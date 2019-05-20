@@ -91,6 +91,8 @@ const enhancer: HOC<
     ['text', 'charCenters'],
     ({
       text,
+      width,
+      height,
       fontSize,
       lineHeight,
       fontFamily,
@@ -104,6 +106,8 @@ const enhancer: HOC<
       return {
         component: withStyles(
           createStyles(text, {
+            width,
+            height,
             fontSize,
             lineHeight,
             fontFamily,

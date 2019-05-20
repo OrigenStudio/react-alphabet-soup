@@ -4,6 +4,7 @@ import { polygonCentroid } from 'd3-polygon';
 import times from 'lodash/times';
 import sortBy from 'lodash/sortBy';
 import rejectUndefined from './rejectUndefined';
+import { DEFAULT_WIDTH, DEFAULT_HEIGHT } from '../defaultConstants';
 
 export type Options = {
   width?: number,
@@ -15,8 +16,8 @@ export type Options = {
 };
 
 const defaultOptions = {
-  width: 100,
-  height: 100,
+  width: DEFAULT_WIDTH,
+  height: DEFAULT_HEIGHT,
   maxIterations: 20,
   acceptableError: 1e-6,
   sorting: 'none',
