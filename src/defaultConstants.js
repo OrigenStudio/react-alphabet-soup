@@ -1,7 +1,7 @@
 // @flow
 /* eslint-env browser */
-
-export const DEFAULT_CANVAS = document.createElement('canvas');
+export const DEFAULT_CANVAS =
+  typeof document !== `undefined` ? document.createElement('canvas') : null;
 export const DEFAULT_FONT_WEIGHT = 400;
 export const DEFAULT_WIDTH = 100;
 export const DEFAULT_HEIGHT = 100;
