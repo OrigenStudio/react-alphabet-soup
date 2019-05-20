@@ -22,8 +22,8 @@ type Props = {
   fontFamily?: string,
   fontSize?: string,
   lineHeight?: number,
-  wrapperClassName: string,
-  charactersClassName: string,
+  wrapperClassName?: string,
+  charactersClassName?: string,
 };
 type State = {};
 
@@ -54,8 +54,8 @@ class AlphabetSoup extends React.Component<Props, State> {
     fontFamily: DEFAULT_FONT_FAMILY,
     fontSize: DEFAULT_FONT_SIZE,
     lineHeight: DEFAULT_LINE_HEIGHT,
-    wrapperClassName: '',
-    charactersClassName: '',
+    wrapperClassName: undefined,
+    charactersClassName: undefined,
   };
 
   render() {
@@ -73,14 +73,18 @@ class AlphabetSoup extends React.Component<Props, State> {
     return (
       <div
         style={{ width: '100%', height: '100%', position: 'relative' }}
-        className={classNames(classes.wrapper, wrapperClassName)}
+        className={classNames(
+          classes.wrapper,
+          wrapperClassName ? [wrapperClassName] : null,
+        )}
       >
         {text.split('').map((char, index) => {
           return (
             <div
-              className={
-                (classNames(classes[`char-${index}`]), charactersClassName)
-              }
+              className={classNames(
+                classes[`char-${index}`],
+                charactersClassName ? [charactersClassName] : null,
+              )}
               key={`${char}-${index}`}
             >
               {char}
