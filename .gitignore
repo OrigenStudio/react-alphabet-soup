@@ -7,3 +7,5 @@ node_modules
 example/\.yalc/
 
 example/yalc\.lock
+
+example/
