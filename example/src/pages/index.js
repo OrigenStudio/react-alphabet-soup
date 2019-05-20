@@ -1,7 +1,7 @@
 import React from "react"
-import {AlphabetSoupWithDimensions} from "react-alphabet-soup"
 import Typography from '@material-ui/core/Typography'
 
+import {AlphabetSoupWithDimensions} from "../../../dist";
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
