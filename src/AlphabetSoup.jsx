@@ -1,46 +1,37 @@
 // @flow
 import * as React from 'react';
-import measureText from './helpers/measureText';
+import compose from 'recompose/compose';
+import withPropsOnChange from 'recompose/withPropsOnChange';
+import lifeCycle from 'recompose/lifecycle';
+import componentFromProp from 'recompose/componentFromProp';
+import withStyles from '@material-ui/core/styles/withStyles';
+import type { HOC } from 'recompose';
+import getCenters from './helpers/getCenters';
+import createStyles from './helpers/createStyles';
+import type { Options as getCentersArguments } from './helpers/getCenters';
 
-const getCharStyle = (
-  index: number,
-  totalWidth: number,
-  partialWidths: Array<number>,
-) => {
-  const accumulatedWidth = partialWidths.reduce((acc, value, reduceIndex) => {
-    if (reduceIndex < index) {
-      return acc + value;
-    }
-    return acc;
-  }, 0);
-  const relativeLeftPosition = accumulatedWidth - totalWidth / 2;
-  return {
-    left: `calc(50% + ${relativeLeftPosition}px)`,
-  };
-};
 type Props = {
-  classes: { ['wrapper']: string },
+  classes: { [string]: string },
   text: string,
+  fontFamily?: string,
+  fontSize?: string,
+  lineHeight?: number,
 };
 type State = {};
 class AlphabetSoup extends React.Component<Props, State> {
+  defaultProps = {
+    fontFamily: 'Georgia',
+    fontSize: '1.2em',
+    lineHeight: 1.3,
+  };
+
   render() {
-    const {
-      classes = {},
-      text,
-      fontFamily = 'Georgia',
-      fontSize = '2em',
-      lineHeight = 1.3,
-    } = this.props;
-    const textWidth = measureText({ text, fontFamily, fontSize, lineHeight })
-      .width.value;
-    const textCharWidths = text
-      .split('')
-      .map(
-        char =>
-          measureText({ text: char, fontFamily, fontSize, lineHeight }).width
-            .value,
-      );
+    const { classes = {}, text } = this.props;
+
+    // console.log('====================================');
+    // console.log('Render', this.props);
+    // console.log('====================================');
+
     return (
       <div
         style={{ width: '100%', height: '100%', position: 'relative' }}
@@ -48,13 +39,7 @@ class AlphabetSoup extends React.Component<Props, State> {
       >
         {text.split('').map((char, index) => {
           return (
-            <div
-              style={{
-                position: 'absolute',
-                top: '50%',
-                ...getCharStyle(index, textWidth, textCharWidths),
-              }}
-            >
+            <div className={classes[`char-${index}`]} key={`${char}-${index}`}>
               {char}
             </div>
           );
@@ -64,4 +49,52 @@ class AlphabetSoup extends React.Component<Props, State> {
   }
 }
 
-export default AlphabetSoup;
+const enhancer: HOC<
+  Props,
+  {
+    ...getCentersArguments,
+    text: string,
+    fontSize?: string,
+    fontFamily?: string,
+    lineHeight?: number,
+  },
+> = compose(
+  lifeCycle({
+    componentDidMount() {
+      const {
+        text,
+        width,
+        height,
+        maxIterations,
+        acceptableError,
+        sorting,
+        costFunctionYWeight,
+      } = this.props;
+      getCenters(text.length, {
+        width,
+        height,
+        maxIterations,
+        acceptableError,
+        sorting,
+        costFunctionYWeight,
+      }).then(result => {
+        this.setState({ charCenters: result });
+      });
+    },
+  }),
+  withPropsOnChange(
+    ['text', 'charCenters'],
+    ({ text, fontSize, lineHeight, fontFamily, charCenters }) => {
+      // console.log('====================================');
+      // console.log('charCenters', charCenters);
+      // console.log('====================================');
+      return {
+        component: withStyles(
+          createStyles(text, { fontSize, lineHeight, fontFamily, charCenters }),
+        )(AlphabetSoup),
+      };
+    },
+  ),
+);
+
+export default enhancer(componentFromProp('component'));
