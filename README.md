@@ -24,14 +24,55 @@ npm install --save react-alphabet-soup || yarn add react-alphabet-soup
 
 #### Table of Contents
 
--   [createStyles](#createstyles)
+-   [AlphabetSoup](#alphabetsoup)
     -   [Parameters](#parameters)
--   [getCenters](#getcenters)
+-   [AlphabetSoupWithDimensions](#alphabetsoupwithdimensions)
     -   [Parameters](#parameters-1)
--   [getCharYPos](#getcharypos)
+-   [createStyles](#createstyles)
     -   [Parameters](#parameters-2)
--   [measureText](#measuretext)
+-   [getCenters](#getcenters)
     -   [Parameters](#parameters-3)
+-   [getCharYPos](#getcharypos)
+    -   [Parameters](#parameters-4)
+-   [measureText](#measuretext)
+    -   [Parameters](#parameters-5)
+
+### AlphabetSoup
+
+**Extends React.Component**
+
+This component renders and animates the text as an Alphabet Soup
+
+#### Parameters
+
+-   `text` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text to render
+-   `width` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** width of the space in pixels (optional, default `100`)
+-   `height` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of the space in pixels (optional, default `100`)
+-   `fontSize` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontSize of the text when the user hovers it. (optional, default `'20px'`)
+-   `lineHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** lineHeight of the text when the user hovers it. (optional, default `1.3`)
+-   `fontFamily` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontFamily of the text. (optional, default `'Georgia'`)
+-   `transitionStyle` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** style of the transition animation. Values: 'constant' | 'progressive' | 'random'. (optional, default `'constant'`)
+-   `transitionSpeedMultiplier` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that. (optional, default `1`)
+-   `maxIterations` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maximum number of iterations that the Lloyd's relaxation will run through.
+    More iterations mean a more optimal solution, however it can take a lot more time. Less iteration generate less optimal solutions. (optional, default `20`)
+-   `acceptableError` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** error that if achieved between iterations the relaxation process will stop, even if the iterations are not completed.
+    Bigger error with compute results faster. (optional, default `1e-6`)
+-   `sorting` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** sorting applied to the generated points. 'none' no sorting applied. 'sortByX' sort ascending points using X.
+    'sortByY' sort ascending points using Y. 'costFunction' sorts points using a cost function like `x + costFunctionYWeight * y`. (optional, default `'none'`)
+-   `costFunctionYWeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** weight applied to Y in the sorting cost function if sorting='costFunction'. (optional, default `1`)
+
+Returns **any** renders the React component
+
+### AlphabetSoupWithDimensions
+
+This component renders and animates the text as an Alphabet Soup
+Same props as AlphabetSoup without width and height which are calculated automatically
+
+#### Parameters
+
+-   `props` **Props** 
+
+Returns **any** renders the React component
 
 ### createStyles
 
@@ -44,6 +85,8 @@ Generates the styles for the wrapper and each of the text characters for the ani
     -   `options.fontSize` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontSize of the text when the user hovers it. (optional, default `'20px'`)
     -   `options.lineHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** lineHeight of the text when the user hovers it. (optional, default `1.3`)
     -   `options.fontFamily` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontFamily of the text. (optional, default `'Georgia'`)
+    -   `options.transitionStyle` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** style of the transition animation. Values: 'constant' | 'progressive' | 'random'. (optional, default `'constant'`)
+    -   `options.transitionSpeedMultiplier` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that. (optional, default `1`)
     -   `options.charCenters` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{x: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)}>** position of the characters before the user hovers them. (optional, default `undefined`)
 
 Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 

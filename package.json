@@ -1,14 +1,14 @@
 {
   "name": "react-alphabet-soup",
   "version": "0.0.1",
-  "description": "My node module",
+  "description": "Create super cool text animations based on an alphabet soup concept",
   "license": "MIT",
-  "repository": "diegohaz/nod",
+  "repository": "OrigenStudio/react-alphabet-soup",
   "main": "dist/index.js",
   "author": {
-    "name": "Diego Haz",
-    "email": "hazdiego@gmail.com",
-    "url": "https://github.com/diegohaz"
+    "name": "Origen Studio",
+    "email": "hello@origen.studio",
+    "url": "https://github.com/OrigenStudio/react-alphabet-soup"
   },
   "files": [
     "dist",
