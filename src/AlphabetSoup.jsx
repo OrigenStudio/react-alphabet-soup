@@ -9,6 +9,11 @@ import type { HOC } from 'recompose';
 import getCenters from './helpers/getCenters';
 import createStyles from './helpers/createStyles';
 import type { Options as getCentersArguments } from './helpers/getCenters';
+import {
+  DEFAULT_FONT_SIZE,
+  DEFAULT_FONT_FAMILY,
+  DEFAULT_LINE_HEIGHT,
+} from './defaultConstants';
 
 type Props = {
   classes: { [string]: string },
@@ -20,9 +25,9 @@ type Props = {
 type State = {};
 class AlphabetSoup extends React.Component<Props, State> {
   defaultProps = {
-    fontFamily: 'Georgia',
-    fontSize: '1.2em',
-    lineHeight: 1.3,
+    fontFamily: DEFAULT_FONT_FAMILY,
+    fontSize: DEFAULT_FONT_SIZE,
+    lineHeight: DEFAULT_LINE_HEIGHT,
   };
 
   render() {
