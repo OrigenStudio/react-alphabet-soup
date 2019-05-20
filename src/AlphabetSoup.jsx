@@ -5,6 +5,7 @@ import withPropsOnChange from 'recompose/withPropsOnChange';
 import lifeCycle from 'recompose/lifecycle';
 import componentFromProp from 'recompose/componentFromProp';
 import withStyles from '@material-ui/core/styles/withStyles';
+import classNames from 'classnames';
 import type { HOC } from 'recompose';
 import getCenters from './helpers/getCenters';
 import createStyles from './helpers/createStyles';
@@ -21,6 +22,8 @@ type Props = {
   fontFamily?: string,
   fontSize?: string,
   lineHeight?: number,
+  wrapperClassName: string,
+  charactersClassName: string,
 };
 type State = {};
 
@@ -41,6 +44,8 @@ type State = {};
  * @param {string} [sorting='none'] sorting applied to the generated points. 'none' no sorting applied. 'sortByX' sort ascending points using X.
  * 'sortByY' sort ascending points using Y. 'costFunction' sorts points using a cost function like `x + costFunctionYWeight * y`.
  * @param {number} [costFunctionYWeight=1] weight applied to Y in the sorting cost function if sorting='costFunction'.
+ * @param {string} [wrapperClassName=''] class name of the wrapper component.
+ * @param {string} [charactersClassName=''] class name of the characters. It will be applied to all the characters.
 
  * @returns renders the React component
  */
@@ -49,10 +54,17 @@ class AlphabetSoup extends React.Component<Props, State> {
     fontFamily: DEFAULT_FONT_FAMILY,
     fontSize: DEFAULT_FONT_SIZE,
     lineHeight: DEFAULT_LINE_HEIGHT,
+    wrapperClassName: '',
+    charactersClassName: '',
   };
 
   render() {
-    const { classes = {}, text } = this.props;
+    const {
+      classes = {},
+      text,
+      wrapperClassName,
+      charactersClassName,
+    } = this.props;
 
     // console.log('====================================');
     // console.log('Render', this.props);
@@ -61,11 +73,16 @@ class AlphabetSoup extends React.Component<Props, State> {
     return (
       <div
         style={{ width: '100%', height: '100%', position: 'relative' }}
-        className={classes.wrapper}
+        className={classNames(classes.wrapper, wrapperClassName)}
       >
         {text.split('').map((char, index) => {
           return (
-            <div className={classes[`char-${index}`]} key={`${char}-${index}`}>
+            <div
+              className={
+                (classNames(classes[`char-${index}`]), charactersClassName)
+              }
+              key={`${char}-${index}`}
+            >
               {char}
             </div>
           );
