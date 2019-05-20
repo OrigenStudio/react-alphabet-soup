@@ -49,6 +49,7 @@
     "d3-delaunay": "4.1.5",
     "d3-polygon": "1.0.5",
     "lodash": "4.17.11",
+    "react-container-dimensions": "1.4.1",
     "recompose": "0.30.0",
     "units-css": "0.4.0"
   },
