@@ -86,7 +86,6 @@ const createStyles = (
     ...defaultOptions,
     ...rejectUndefined(options),
   };
-  console.log(width, height);
 
   const textAsArray = text.split('');
   const textWidth = measureText(text, { fontFamily, fontSize, lineHeight })
