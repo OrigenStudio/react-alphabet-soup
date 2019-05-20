@@ -23,6 +23,27 @@ type Props = {
   lineHeight?: number,
 };
 type State = {};
+
+/**
+ * This component renders and animates the text as an Alphabet Soup
+ * @param {string} text text to render
+ * @param {number} [width=100] width of the space in pixels
+ * @param {number} [height=100] height of the space in pixels
+ * @param {string} [fontSize='20px'] fontSize of the text when the user hovers it.
+ * @param {number} [lineHeight=1.3] lineHeight of the text when the user hovers it.
+ * @param {string} [fontFamily='Georgia'] fontFamily of the text.
+ * @param {string} [transitionStyle='constant'] style of the transition animation. Values: 'constant' | 'progressive' | 'random'.
+ * @param {string} [transitionSpeedMultiplier=1] speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that.
+ * @param {number} [maxIterations=20] maximum number of iterations that the Lloyd's relaxation will run through.
+ * More iterations mean a more optimal solution, however it can take a lot more time. Less iteration generate less optimal solutions.
+ * @param {number} [acceptableError=1e-6] error that if achieved between iterations the relaxation process will stop, even if the iterations are not completed.
+ * Bigger error with compute results faster.
+ * @param {string} [sorting='none'] sorting applied to the generated points. 'none' no sorting applied. 'sortByX' sort ascending points using X.
+ * 'sortByY' sort ascending points using Y. 'costFunction' sorts points using a cost function like `x + costFunctionYWeight * y`.
+ * @param {number} [costFunctionYWeight=1] weight applied to Y in the sorting cost function if sorting='costFunction'.
+
+ * @returns renders the React component
+ */
 class AlphabetSoup extends React.Component<Props, State> {
   defaultProps = {
     fontFamily: DEFAULT_FONT_FAMILY,
@@ -54,16 +75,17 @@ class AlphabetSoup extends React.Component<Props, State> {
   }
 }
 
-const enhancer: HOC<
-  Props,
-  {
-    ...getCentersArguments,
-    text: string,
-    fontSize?: string,
-    fontFamily?: string,
-    lineHeight?: number,
-  },
-> = compose(
+export type EnhancedProps = {
+  ...getCentersArguments,
+  text: string,
+  fontSize?: string,
+  fontFamily?: string,
+  lineHeight?: number,
+  transitionStyle?: 'constant' | 'progressive' | 'random',
+  transitionSpeedMultiplier?: number,
+};
+
+const enhancer: HOC<Props, EnhancedProps> = compose(
   lifeCycle({
     componentDidMount() {
       const {
