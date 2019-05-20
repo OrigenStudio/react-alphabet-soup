@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "gatsby"
 import AlphabetSoup from "react-alphabet-soup"
 
 import Layout from "../components/layout"
@@ -13,7 +12,7 @@ const IndexPage = () => (
     <p>Welcome to your new Gatsby site.</p>
     <p>Now go build something great.</p>
     <div style={{ width: `100%`, height: "500px", marginBottom: `1.45rem` }}>
-      <AlphabetSoup text="Hello, world! Hello, Oscar" />
+      <AlphabetSoup text="NEALS YARD" fontSize="24px" sorting="costFunction" costFunctionYWeight={3} />
     </div>
   </Layout>
 )
