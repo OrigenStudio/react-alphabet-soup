@@ -7,3 +7,5 @@ export const DEFAULT_FONT_STYLE = 'normal';
 export const DEFAULT_FONT_FAMILY = 'Georgia';
 export const DEFAULT_FONT_SIZE = '20px';
 export const DEFAULT_LINE_HEIGHT = 1.3;
+export const DEFAULT_TRANSITION_STYLE = 'constant';
+export const DEFAULT_TRANSITION_SPEED_MULTIPLIER = 1;

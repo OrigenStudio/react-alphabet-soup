@@ -89,13 +89,28 @@ const enhancer: HOC<
   }),
   withPropsOnChange(
     ['text', 'charCenters'],
-    ({ text, fontSize, lineHeight, fontFamily, charCenters }) => {
+    ({
+      text,
+      fontSize,
+      lineHeight,
+      fontFamily,
+      transitionStyle,
+      transitionSpeedMultiplier,
+      charCenters,
+    }) => {
       // console.log('====================================');
       // console.log('charCenters', charCenters);
       // console.log('====================================');
       return {
         component: withStyles(
-          createStyles(text, { fontSize, lineHeight, fontFamily, charCenters }),
+          createStyles(text, {
+            fontSize,
+            lineHeight,
+            fontFamily,
+            transitionStyle,
+            transitionSpeedMultiplier,
+            charCenters,
+          }),
         )(AlphabetSoup),
       };
     },
