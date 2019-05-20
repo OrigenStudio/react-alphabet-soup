@@ -3,3 +3,9 @@ coverage
 dist
 node_modules
 *.log
+
+example/\.yalc/
+
+example/yalc\.lock
+
+example/

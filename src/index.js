@@ -1,10 +1,7 @@
 // @flow
+/* eslint-disable import/no-unresolved */ // there are problems with eslint not able to detect the imports
+import AlphabetSoup from './AlphabetSoup';
+import AlphabetSoupWithDimensions from './AlphabetSoupWithDimensions';
 
-/**
- * This function says hello.
- * @param name Some name to say hello for.
- * @returns The hello.
- */
-const sayHello = (name: string = "Haz"): string => `Hello, ${name}!`;
-
-export default sayHello;
+export { AlphabetSoupWithDimensions };
+export default AlphabetSoup;

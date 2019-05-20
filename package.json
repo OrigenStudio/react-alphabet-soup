@@ -1,14 +1,14 @@
 {
-  "name": "generator-nod",
+  "name": "react-alphabet-soup",
   "version": "0.0.1",
-  "description": "My node module",
+  "description": "Create super cool text animations based on an alphabet soup concept",
   "license": "MIT",
-  "repository": "diegohaz/nod",
+  "repository": "OrigenStudio/react-alphabet-soup",
   "main": "dist/index.js",
   "author": {
-    "name": "Diego Haz",
-    "email": "hazdiego@gmail.com",
-    "url": "https://github.com/diegohaz"
+    "name": "Origen Studio",
+    "email": "hello@origen.studio",
+    "url": "https://github.com/OrigenStudio/react-alphabet-soup"
   },
   "files": [
     "dist",
@@ -28,6 +28,7 @@
     "build": "babel src -d dist",
     "preversion": "npm run lint && npm test && npm run build",
     "version": "standard-changelog && git add CHANGELOG.md",
+    "prepublish": "yarn build",
     "postpublish": "git push origin master --follow-tags"
   },
   "husky": {
@@ -44,13 +45,22 @@
   "keywords": [
     "generator-nod"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "classnames": "2.2.6",
+    "d3-delaunay": "4.1.5",
+    "d3-polygon": "1.0.5",
+    "lodash": "4.17.11",
+    "react-container-dimensions": "1.4.1",
+    "recompose": "0.30.0",
+    "units-css": "0.4.0"
+  },
   "devDependencies": {
     "@babel/cli": "7.2.3",
     "@babel/core": "7.3.4",
     "@babel/plugin-proposal-class-properties": "7.3.4",
     "@babel/preset-env": "7.3.4",
     "@babel/preset-flow": "7.0.0",
+    "@babel/preset-react": "7.0.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "24.1.0",
     "documentation": "9.3.0",
@@ -70,5 +80,10 @@
     "prettier": "1.16.4",
     "rimraf": "2.6.3",
     "standard-changelog": "2.0.7"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "3.9.3",
+    "react": "16.8.6",
+    "react-dom": "16.8.6"
   }
 }

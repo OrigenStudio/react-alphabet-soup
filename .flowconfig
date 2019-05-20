@@ -1,3 +1,7 @@
 [ignore]
 .*/dist
 .*/coverage
+.*/.yalc
+
+[libs]
+flow-typed
