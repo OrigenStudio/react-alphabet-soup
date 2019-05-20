@@ -60,6 +60,8 @@ This component renders and animates the text as an Alphabet Soup
 -   `sorting` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** sorting applied to the generated points. 'none' no sorting applied. 'sortByX' sort ascending points using X.
     'sortByY' sort ascending points using Y. 'costFunction' sorts points using a cost function like `x + costFunctionYWeight * y`. (optional, default `'none'`)
 -   `costFunctionYWeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** weight applied to Y in the sorting cost function if sorting='costFunction'. (optional, default `1`)
+-   `wrapperClassName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** class name of the wrapper component. (optional, default `''`)
+-   `charactersClassName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** class name of the characters. It will be applied to all the characters. (optional, default `''`)
 
 Returns **any** renders the React component
 
