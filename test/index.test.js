@@ -1,6 +1,4 @@
-import sayHello from "../src";
-
-test("sayHello", () => {
-  expect(sayHello()).toBe("Hello, Haz!");
-  expect(sayHello("foo")).toBe("Hello, foo!");
+test('WIP', () => {
+  const test = 'WIP';
+  expect(test === 'WIP');
 });
