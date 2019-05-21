@@ -115,7 +115,6 @@ const createStyles = (
           ),
           left: `${(charCenters[index].x / width) * 100}%`,
           top: `${(charCenters[index].y / height) * 100}%`,
-          fontSize: '50px',
           transform: `rotate(${Math.random() * 90 - Math.random() * 90}deg)`,
         };
         return acc;
@@ -137,6 +136,7 @@ const createStyles = (
       width: '100%',
       height: '100%',
       position: 'relative',
+      fontSize: '50px',
       ...charsHoverStyle,
     },
     ...charsDefaultStyle,
