@@ -74,16 +74,16 @@ class AlphabetSoup extends React.Component<Props, State> {
       <div
         style={{ width: '100%', height: '100%', position: 'relative' }}
         className={classNames(
-          classes.wrapper,
           wrapperClassName ? [wrapperClassName] : null,
+          classes.wrapper,
         )}
       >
         {text.split('').map((char, index) => {
           return (
             <div
               className={classNames(
-                classes[`char-${index}`],
                 charactersClassName ? [charactersClassName] : null,
+                classes[`char-${index}`],
               )}
               key={`${char}-${index}`}
             >
