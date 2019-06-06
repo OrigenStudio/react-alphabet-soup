@@ -41,6 +41,58 @@ const IndexPage = () => (
       />
     </div>
     <Typography variant="h6">
+      Sorting: 'sortByY' | TransitionStyle: 'constant' | vertical: true
+    </Typography>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        style={{
+          width: `70px`,
+          height: "900px",
+          marginBottom: `1.45rem`,
+        }}
+      >
+        <AlphabetSoupWithDimensions
+          text="Hello, world!"
+          fontSize="24px"
+          sorting="sortByY"
+          transitionStyle="constant"
+          vertical={true}
+        />
+      </div>
+    </div>
+    <Typography variant="h6">
+      Sorting: 'sortByY' | TransitionStyle: 'constant' | untidyOnHover: true |
+      vertical: true
+    </Typography>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        style={{
+          width: `70px`,
+          height: "900px",
+          marginBottom: `1.45rem`,
+        }}
+      >
+        <AlphabetSoupWithDimensions
+          text="Hello, world!"
+          fontSize="24px"
+          sorting="sortByY"
+          transitionStyle="constant"
+          untidyOnHover={true}
+          vertical={true}
+        />
+      </div>
+    </div>
+    <Typography variant="h6">
       Sorting: 'none' | TransitionStyle: 'progressive'
     </Typography>
     <div style={{ width: `100%`, height: "500px", marginBottom: `1.45rem` }}>
