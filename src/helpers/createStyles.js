@@ -132,6 +132,7 @@ const createStyles = (
     if (untidyOnHover && charCenters) {
       acc[`&:hover $char-${index}`] = {
         ...charsUntidyStyle(index),
+        fontSize: 'inherit',
       };
       return acc;
     }

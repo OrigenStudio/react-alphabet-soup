@@ -46,6 +46,7 @@ type State = {};
  * @param {number} [costFunctionYWeight=1] weight applied to Y in the sorting cost function if sorting='costFunction'.
  * @param {string} [wrapperClassName=''] class name of the wrapper component.
  * @param {string} [charactersClassName=''] class name of the characters. It will be applied to all the characters.
+ * @param {boolean} [untidyOnHover=''] reverses the behaviour. The text is tidy by default and gets untidy when hover
 
  * @returns renders the React component
  */
@@ -65,10 +66,6 @@ class AlphabetSoup extends React.Component<Props, State> {
       wrapperClassName,
       charactersClassName,
     } = this.props;
-
-    // console.log('====================================');
-    // console.log('Render', this.props);
-    // console.log('====================================');
 
     return (
       <div
@@ -104,6 +101,7 @@ export type EnhancedProps = {
   lineHeight?: number,
   transitionStyle?: 'constant' | 'progressive' | 'random',
   transitionSpeedMultiplier?: number,
+  untidyOnHover?: boolean,
 };
 
 const enhancer: HOC<Props, EnhancedProps> = compose(
@@ -142,10 +140,8 @@ const enhancer: HOC<Props, EnhancedProps> = compose(
       transitionStyle,
       transitionSpeedMultiplier,
       charCenters,
+      untidyOnHover,
     }) => {
-      // console.log('====================================');
-      // console.log('charCenters', charCenters);
-      // console.log('====================================');
       return {
         component: withStyles(
           createStyles(text, {
@@ -157,6 +153,7 @@ const enhancer: HOC<Props, EnhancedProps> = compose(
             transitionStyle,
             transitionSpeedMultiplier,
             charCenters,
+            untidyOnHover,
           }),
         )(AlphabetSoup),
       };

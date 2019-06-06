@@ -32,10 +32,12 @@ npm install --save react-alphabet-soup || yarn add react-alphabet-soup
     -   [Parameters](#parameters-2)
 -   [getCenters](#getcenters)
     -   [Parameters](#parameters-3)
--   [getCharXPos](#getCharXPos)
+-   [getCharXPos](#getcharxpos)
     -   [Parameters](#parameters-4)
--   [measureText](#measuretext)
+-   [getCharYPos](#getcharypos)
     -   [Parameters](#parameters-5)
+-   [measureText](#measuretext)
+    -   [Parameters](#parameters-6)
 
 ### AlphabetSoup
 
@@ -48,8 +50,8 @@ This component renders and animates the text as an Alphabet Soup
 -   `text` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text to render
 -   `width` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** width of the space in pixels (optional, default `100`)
 -   `height` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of the space in pixels (optional, default `100`)
--   `fontSize` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontSize of the text when the user hovers it. (optional, default `'20px'`)
--   `lineHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** lineHeight of the text when the user hovers it. (optional, default `1.3`)
+-   `fontSize` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontSize of the text when tidy. (optional, default `'20px'`)
+-   `lineHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** lineHeight of the text when tidy. (optional, default `1.3`)
 -   `fontFamily` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontFamily of the text. (optional, default `'Georgia'`)
 -   `transitionStyle` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** style of the transition animation. Values: 'constant' | 'progressive' | 'random'. (optional, default `'constant'`)
 -   `transitionSpeedMultiplier` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that. (optional, default `1`)
@@ -62,6 +64,7 @@ This component renders and animates the text as an Alphabet Soup
 -   `costFunctionYWeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** weight applied to Y in the sorting cost function if sorting='costFunction'. (optional, default `1`)
 -   `wrapperClassName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** class name of the wrapper component. (optional, default `''`)
 -   `charactersClassName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** class name of the characters. It will be applied to all the characters. (optional, default `''`)
+-   `untidyOnHover` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** reverses the behaviour. The text is tidy by default and gets untidy when hover (optional, default `''`)
 
 Returns **any** renders the React component
 
@@ -84,8 +87,8 @@ Generates the styles for the wrapper and each of the text characters for the ani
 
 -   `text` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text to be rendered. It is used to generate a style for each character.
 -   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object with options (optional, default `{}`)
-    -   `options.fontSize` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontSize of the text when the user hovers it. (optional, default `'20px'`)
-    -   `options.lineHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** lineHeight of the text when the user hovers it. (optional, default `1.3`)
+    -   `options.fontSize` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontSize of the text when tidy (optional, default `'20px'`)
+    -   `options.lineHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** lineHeight of the text when tidy. (optional, default `1.3`)
     -   `options.fontFamily` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontFamily of the text. (optional, default `'Georgia'`)
     -   `options.transitionStyle` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** style of the transition animation. Values: 'constant' | 'progressive' | 'random'. (optional, default `'constant'`)
     -   `options.transitionSpeedMultiplier` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that. (optional, default `1`)
@@ -124,8 +127,18 @@ Currently the makes the text to be centered on the space.
 
 -   `index` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the characters to calculate the CSS `left` parameter
 -   `totalWidth` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total width of the text to render
--   `partialWidths` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
--   `partialWidth` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** array with the width of each character sorted by index position.
+-   `partialWidths` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** array with the width of each character sorted by index position.
+
+### getCharYPos
+
+This function return the CSS `top` parameter for the characters of the input index.
+Currently the makes the text to be centered on the space.
+
+#### Parameters
+
+-   `index` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the characters to calculate the CSS `top` parameter
+-   `totalHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total height of the text to render
+-   `partialHeights` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** array with the width of each character sorted by index position.
 
 ### measureText
 
