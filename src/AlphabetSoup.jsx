@@ -46,7 +46,8 @@ type State = {};
  * @param {number} [costFunctionYWeight=1] weight applied to Y in the sorting cost function if sorting='costFunction'.
  * @param {string} [wrapperClassName=''] class name of the wrapper component.
  * @param {string} [charactersClassName=''] class name of the characters. It will be applied to all the characters.
- * @param {boolean} [untidyOnHover=''] reverses the behaviour. The text is tidy by default and gets untidy when hover
+ * @param {boolean} [untidyOnHover=false] reverses the behaviour. The text is tidy by default and gets untidy when hover
+ * @param {boolean} [vertical=false] when true, the tidied text renders in vertical.
 
  * @returns renders the React component
  */
@@ -102,6 +103,7 @@ export type EnhancedProps = {
   transitionStyle?: 'constant' | 'progressive' | 'random',
   transitionSpeedMultiplier?: number,
   untidyOnHover?: boolean,
+  vertical?: boolean,
 };
 
 const enhancer: HOC<Props, EnhancedProps> = compose(
@@ -141,6 +143,7 @@ const enhancer: HOC<Props, EnhancedProps> = compose(
       transitionSpeedMultiplier,
       charCenters,
       untidyOnHover,
+      vertical
     }) => {
       return {
         component: withStyles(
@@ -154,6 +157,7 @@ const enhancer: HOC<Props, EnhancedProps> = compose(
             transitionSpeedMultiplier,
             charCenters,
             untidyOnHover,
+            vertical
           }),
         )(AlphabetSoup),
       };

@@ -32,9 +32,9 @@ npm install --save react-alphabet-soup || yarn add react-alphabet-soup
     -   [Parameters](#parameters-2)
 -   [getCenters](#getcenters)
     -   [Parameters](#parameters-3)
--   [getCharXPos](#getcharxpos)
+-   [getCharVerticalPos](#getcharverticalpos)
     -   [Parameters](#parameters-4)
--   [getCharYPos](#getcharypos)
+-   [getCharXPos](#getcharxpos)
     -   [Parameters](#parameters-5)
 -   [measureText](#measuretext)
     -   [Parameters](#parameters-6)
@@ -64,7 +64,8 @@ This component renders and animates the text as an Alphabet Soup
 -   `costFunctionYWeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** weight applied to Y in the sorting cost function if sorting='costFunction'. (optional, default `1`)
 -   `wrapperClassName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** class name of the wrapper component. (optional, default `''`)
 -   `charactersClassName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** class name of the characters. It will be applied to all the characters. (optional, default `''`)
--   `untidyOnHover` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** reverses the behaviour. The text is tidy by default and gets untidy when hover (optional, default `''`)
+-   `untidyOnHover` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** reverses the behaviour. The text is tidy by default and gets untidy when hover (optional, default `false`)
+-   `vertical` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** when true, the tidied text renders in vertical. (optional, default `false`)
 
 Returns **any** renders the React component
 
@@ -93,6 +94,7 @@ Generates the styles for the wrapper and each of the text characters for the ani
     -   `options.transitionStyle` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** style of the transition animation. Values: 'constant' | 'progressive' | 'random'. (optional, default `'constant'`)
     -   `options.transitionSpeedMultiplier` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that. (optional, default `1`)
     -   `options.untidyOnHover` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** when true the behaviour is the opposite. (optional, default `false`)
+    -   `options.vertical` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** when true, the tidied text renders in vertical. (optional, default `false`)
     -   `options.charCenters` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{x: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)}>** position of the characters before the user hovers them. (optional, default `undefined`)
 
 Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
@@ -118,6 +120,18 @@ It uses the Lloyd's relaxation on a Voronoi diagram to distribute the points.
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{x: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)}>>** returns a Promise that when resolved returns an array with the points positions
 
+### getCharVerticalPos
+
+This function return the CSS `top` and `left` parameter for the characters of the input index.
+Currently the makes the text to be centered on the space.
+
+#### Parameters
+
+-   `index` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the characters
+-   `totalHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total height of the text to render
+-   `partialHeights` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** array with the width of each character sorted by index position.
+-   `partialWidths` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+
 ### getCharXPos
 
 This function return the CSS `left` parameter for the characters of the input index.
@@ -128,17 +142,6 @@ Currently the makes the text to be centered on the space.
 -   `index` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the characters to calculate the CSS `left` parameter
 -   `totalWidth` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total width of the text to render
 -   `partialWidths` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** array with the width of each character sorted by index position.
-
-### getCharYPos
-
-This function return the CSS `top` parameter for the characters of the input index.
-Currently the makes the text to be centered on the space.
-
-#### Parameters
-
--   `index` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the characters to calculate the CSS `top` parameter
--   `totalHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total height of the text to render
--   `partialHeights` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** array with the width of each character sorted by index position.
 
 ### measureText
 

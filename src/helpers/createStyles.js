@@ -1,7 +1,8 @@
 // @flow
 import measureText from './measureText';
 import rejectUndefined from './rejectUndefined';
-import getCharXPos from './getCharXPos';
+import getCharHorizontalPos from './getCharHorizontalPos';
+import getCharVerticalPos from './getCharVerticalPos';
 import {
   DEFAULT_WIDTH,
   DEFAULT_HEIGHT,
@@ -11,6 +12,7 @@ import {
   DEFAULT_TRANSITION_STYLE,
   DEFAULT_TRANSITION_SPEED_MULTIPLIER,
   DEFAULT_UNTIDY_ON_HOVER,
+  DEFAULT_VERTICAL,
 } from '../defaultConstants';
 
 export const TRANSITION_CONSTANT = 'constant';
@@ -26,6 +28,8 @@ export type Options = {
   transitionStyle?: 'constant' | 'progressive' | 'random',
   transitionSpeedMultiplier?: number,
   charCenters?: Array<{ x: number, y: number }>,
+  untidyOnHover?: boolean,
+  vertical?: boolean,
 };
 
 export const defaultOptions = {
@@ -38,6 +42,7 @@ export const defaultOptions = {
   transitionSpeedMultiplier: DEFAULT_TRANSITION_SPEED_MULTIPLIER,
   charCenters: undefined,
   untidyOnHover: DEFAULT_UNTIDY_ON_HOVER,
+  vertical: DEFAULT_VERTICAL,
 };
 
 const generateTransition = (
@@ -68,6 +73,7 @@ const generateTransition = (
  * @param {string} [options.transitionStyle='constant'] style of the transition animation. Values: 'constant' | 'progressive' | 'random'.
  * @param {string} [options.transitionSpeedMultiplier=1] speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that.
  * @param {boolean} [options.untidyOnHover=false] when true the behaviour is the opposite.
+ * @param {boolean} [options.vertical=false] when true, the tidied text renders in vertical.
  * @param {Array<{ x: number, y: number }>} [options.charCenters=undefined] position of the characters before the user hovers them.
  * @returns {{[styleName]: styles}} returns a object with the JSS styles for the wrapper and each character. This object needs to be consumed
  * by the `withStyles` HoC from Material-UI to generate the CSS. The `injectStyles` HoC from JSS can also be used.
@@ -86,17 +92,26 @@ const createStyles = (
     transitionSpeedMultiplier,
     charCenters,
     untidyOnHover,
+    vertical,
   } = {
     ...defaultOptions,
     ...rejectUndefined(options),
   };
 
   const textAsArray = text.split('');
-  const textWidth = measureText(text, { fontFamily, fontSize, lineHeight })
-    .width.value;
+  const {
+    width: { value: textWidth },
+    // height: { value: textHeight } // Not useful cause the height is measured when text is rendered hortizontally
+  } = measureText(text, { fontFamily, fontSize, lineHeight });
   const textCharWidths = textAsArray.map(
     char => measureText(char, { fontFamily, fontSize, lineHeight }).width.value,
   );
+  const textCharHeights = textAsArray.map(
+    char =>
+      measureText(char, { fontFamily, fontSize, lineHeight }).height.value,
+  );
+  // Calculate total text Height when rendered vertically
+  const textHeight = textCharHeights.reduce((acc, value) => acc + value, 0);
 
   const charsHorizontalStyle = index => ({
     position: 'absolute',
@@ -104,17 +119,16 @@ const createStyles = (
     top: '50%',
     transform: `rotate(0deg)`,
     fontSize,
-    ...getCharXPos(index, textWidth, textCharWidths),
+    ...getCharHorizontalPos(index, textWidth, textCharWidths),
   });
 
-  // const charsVerticalStyle = index => ({
-  //   position: 'absolute',
-  //   transition: `all 1s`,
-  //   top: '50%',
-  //   transform: `rotate(0deg)`,
-  //   fontSize,
-  //   ...getCharXPos(index, textWidth, textCharWidths),
-  // });
+  const charsVerticalStyle = index => ({
+    position: 'absolute',
+    transition: `all 1s`,
+    transform: `rotate(0deg)`,
+    fontSize,
+    ...getCharVerticalPos(index, textHeight, textCharHeights, textCharWidths),
+  });
 
   const charsUntidyStyle = index => ({
     position: 'absolute',
@@ -136,9 +150,9 @@ const createStyles = (
       };
       return acc;
     }
-    acc[`&:hover $char-${index}`] = {
-      ...charsHorizontalStyle(index),
-    };
+    acc[`&:hover $char-${index}`] = vertical
+      ? { ...charsVerticalStyle(index) }
+      : { ...charsHorizontalStyle(index) };
     return acc;
   }, {});
 
@@ -149,9 +163,9 @@ const createStyles = (
       };
       return acc;
     }
-    acc[`char-${index}`] = {
-      ...charsHorizontalStyle(index),
-    };
+    acc[`char-${index}`] = vertical
+      ? { ...charsVerticalStyle(index) }
+      : { ...charsHorizontalStyle(index) };
     return acc;
   }, {});
 
