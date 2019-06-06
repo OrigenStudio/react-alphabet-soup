@@ -7,7 +7,7 @@
  * @param {Array<number>} partialWidth array with the width of each character sorted by index position.
  * @returns {left:string} returns the calculated `left` parameter.
  */
-const getCharYPos = (
+const getCharXPos = (
   index: number,
   totalWidth: number,
   partialWidths: Array<number>,
@@ -24,4 +24,4 @@ const getCharYPos = (
   };
 };
 
-export default getCharYPos;
+export default getCharXPos;

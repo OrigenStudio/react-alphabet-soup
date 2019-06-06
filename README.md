@@ -32,7 +32,7 @@ npm install --save react-alphabet-soup || yarn add react-alphabet-soup
     -   [Parameters](#parameters-2)
 -   [getCenters](#getcenters)
     -   [Parameters](#parameters-3)
--   [getCharYPos](#getcharypos)
+-   [getCharXPos](#getCharXPos)
     -   [Parameters](#parameters-4)
 -   [measureText](#measuretext)
     -   [Parameters](#parameters-5)
@@ -89,6 +89,7 @@ Generates the styles for the wrapper and each of the text characters for the ani
     -   `options.fontFamily` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontFamily of the text. (optional, default `'Georgia'`)
     -   `options.transitionStyle` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** style of the transition animation. Values: 'constant' | 'progressive' | 'random'. (optional, default `'constant'`)
     -   `options.transitionSpeedMultiplier` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that. (optional, default `1`)
+    -   `options.untidyOnHover` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** when true the behaviour is the opposite. (optional, default `false`)
     -   `options.charCenters` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{x: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)}>** position of the characters before the user hovers them. (optional, default `undefined`)
 
 Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
@@ -114,7 +115,7 @@ It uses the Lloyd's relaxation on a Voronoi diagram to distribute the points.
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{x: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)}>>** returns a Promise that when resolved returns an array with the points positions
 
-### getCharYPos
+### getCharXPos
 
 This function return the CSS `left` parameter for the characters of the input index.
 Currently the makes the text to be centered on the space.

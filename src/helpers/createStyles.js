@@ -1,7 +1,7 @@
 // @flow
 import measureText from './measureText';
 import rejectUndefined from './rejectUndefined';
-import getCharYPos from './getCharYPos';
+import getCharXPos from './getCharXPos';
 import {
   DEFAULT_WIDTH,
   DEFAULT_HEIGHT,
@@ -10,6 +10,7 @@ import {
   DEFAULT_LINE_HEIGHT,
   DEFAULT_TRANSITION_STYLE,
   DEFAULT_TRANSITION_SPEED_MULTIPLIER,
+  DEFAULT_UNTIDY_ON_HOVER,
 } from '../defaultConstants';
 
 export const TRANSITION_CONSTANT = 'constant';
@@ -36,6 +37,7 @@ export const defaultOptions = {
   transitionStyle: DEFAULT_TRANSITION_STYLE,
   transitionSpeedMultiplier: DEFAULT_TRANSITION_SPEED_MULTIPLIER,
   charCenters: undefined,
+  untidyOnHover: DEFAULT_UNTIDY_ON_HOVER,
 };
 
 const generateTransition = (
@@ -60,11 +62,12 @@ const generateTransition = (
  *
  * @param {string} text text to be rendered. It is used to generate a style for each character.
  * @param {object} [options={}] object with options
- * @param {string} [options.fontSize='20px'] fontSize of the text when the user hovers it.
- * @param {number} [options.lineHeight=1.3] lineHeight of the text when the user hovers it.
+ * @param {string} [options.fontSize='20px'] fontSize of the text when tidy
+ * @param {number} [options.lineHeight=1.3] lineHeight of the text when tidy.
  * @param {string} [options.fontFamily='Georgia'] fontFamily of the text.
  * @param {string} [options.transitionStyle='constant'] style of the transition animation. Values: 'constant' | 'progressive' | 'random'.
  * @param {string} [options.transitionSpeedMultiplier=1] speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that.
+ * @param {boolean} [options.untidyOnHover=false] when true the behaviour is the opposite.
  * @param {Array<{ x: number, y: number }>} [options.charCenters=undefined] position of the characters before the user hovers them.
  * @returns {{[styleName]: styles}} returns a object with the JSS styles for the wrapper and each character. This object needs to be consumed
  * by the `withStyles` HoC from Material-UI to generate the CSS. The `injectStyles` HoC from JSS can also be used.
@@ -82,6 +85,7 @@ const createStyles = (
     transitionStyle,
     transitionSpeedMultiplier,
     charCenters,
+    untidyOnHover,
   } = {
     ...defaultOptions,
     ...rejectUndefined(options),
@@ -94,42 +98,61 @@ const createStyles = (
     char => measureText(char, { fontFamily, fontSize, lineHeight }).width.value,
   );
 
+  const charsHorizontalStyle = index => ({
+    position: 'absolute',
+    transition: `all 1s`,
+    top: '50%',
+    transform: `rotate(0deg)`,
+    fontSize,
+    ...getCharXPos(index, textWidth, textCharWidths),
+  });
+
+  // const charsVerticalStyle = index => ({
+  //   position: 'absolute',
+  //   transition: `all 1s`,
+  //   top: '50%',
+  //   transform: `rotate(0deg)`,
+  //   fontSize,
+  //   ...getCharXPos(index, textWidth, textCharWidths),
+  // });
+
+  const charsUntidyStyle = index => ({
+    position: 'absolute',
+    transition: generateTransition(
+      transitionStyle,
+      transitionSpeedMultiplier,
+      index,
+    ),
+    left: `${(charCenters[index].x / width) * 100}%`,
+    top: `${(charCenters[index].y / height) * 100}%`,
+    transform: `rotate(${Math.random() * 90 - Math.random() * 90}deg)`,
+  });
+
   const charsHoverStyle = textAsArray.reduce((acc, char, index) => {
+    if (untidyOnHover && charCenters) {
+      acc[`&:hover $char-${index}`] = {
+        ...charsUntidyStyle(index),
+      };
+      return acc;
+    }
     acc[`&:hover $char-${index}`] = {
-      top: '50%',
-      transform: `rotate(0deg)`,
-      fontSize,
-      ...getCharYPos(index, textWidth, textCharWidths),
+      ...charsHorizontalStyle(index),
     };
     return acc;
   }, {});
 
-  const charsDefaultStyle = charCenters
-    ? textAsArray.reduce((acc, char, index) => {
-        acc[`char-${index}`] = {
-          position: 'absolute',
-          transition: generateTransition(
-            transitionStyle,
-            transitionSpeedMultiplier,
-            index,
-          ),
-          left: `${(charCenters[index].x / width) * 100}%`,
-          top: `${(charCenters[index].y / height) * 100}%`,
-          transform: `rotate(${Math.random() * 90 - Math.random() * 90}deg)`,
-        };
-        return acc;
-      }, {})
-    : textAsArray.reduce((acc, char, index) => {
-        acc[`char-${index}`] = {
-          position: 'absolute',
-          transition: `all 1s`,
-          top: '50%',
-          transform: `rotate(0deg)`,
-          fontSize,
-          ...getCharYPos(index, textWidth, textCharWidths),
-        };
-        return acc;
-      }, {});
+  const charsDefaultStyle = textAsArray.reduce((acc, char, index) => {
+    if (!untidyOnHover && charCenters) {
+      acc[`char-${index}`] = {
+        ...charsUntidyStyle(index),
+      };
+      return acc;
+    }
+    acc[`char-${index}`] = {
+      ...charsHorizontalStyle(index),
+    };
+    return acc;
+  }, {});
 
   return {
     wrapper: {

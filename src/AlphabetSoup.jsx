@@ -32,8 +32,8 @@ type State = {};
  * @param {string} text text to render
  * @param {number} [width=100] width of the space in pixels
  * @param {number} [height=100] height of the space in pixels
- * @param {string} [fontSize='20px'] fontSize of the text when the user hovers it.
- * @param {number} [lineHeight=1.3] lineHeight of the text when the user hovers it.
+ * @param {string} [fontSize='20px'] fontSize of the text when tidy.
+ * @param {number} [lineHeight=1.3] lineHeight of the text when tidy.
  * @param {string} [fontFamily='Georgia'] fontFamily of the text.
  * @param {string} [transitionStyle='constant'] style of the transition animation. Values: 'constant' | 'progressive' | 'random'.
  * @param {string} [transitionSpeedMultiplier=1] speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that.
