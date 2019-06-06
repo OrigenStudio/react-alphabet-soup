@@ -16,7 +16,7 @@
     "gatsby-transformer-sharp": "^2.1.19",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-alphabet-soup": "^0.0.2",
+    "react-alphabet-soup": "latest",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1"
   },
