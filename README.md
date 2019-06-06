@@ -32,9 +32,9 @@ npm install --save react-alphabet-soup || yarn add react-alphabet-soup
     -   [Parameters](#parameters-2)
 -   [getCenters](#getcenters)
     -   [Parameters](#parameters-3)
--   [getCharVerticalPos](#getcharverticalpos)
+-   [getCharHorizontalPos](#getcharhorizontalpos)
     -   [Parameters](#parameters-4)
--   [getCharXPos](#getcharxpos)
+-   [getCharVerticalPos](#getcharverticalpos)
     -   [Parameters](#parameters-5)
 -   [measureText](#measuretext)
     -   [Parameters](#parameters-6)
@@ -120,6 +120,17 @@ It uses the Lloyd's relaxation on a Voronoi diagram to distribute the points.
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{x: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)}>>** returns a Promise that when resolved returns an array with the points positions
 
+### getCharHorizontalPos
+
+This function return the CSS `left` parameter for the characters of the input index.
+Currently the makes the text to be centered on the space.
+
+#### Parameters
+
+-   `index` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the characters to calculate the CSS `left` parameter
+-   `totalWidth` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total width of the text to render
+-   `partialWidths` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** array with the width of each character sorted by index position.
+
 ### getCharVerticalPos
 
 This function return the CSS `top` and `left` parameter for the characters of the input index.
@@ -131,17 +142,6 @@ Currently the makes the text to be centered on the space.
 -   `totalHeight` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total height of the text to render
 -   `partialHeights` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** array with the width of each character sorted by index position.
 -   `partialWidths` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
-
-### getCharXPos
-
-This function return the CSS `left` parameter for the characters of the input index.
-Currently the makes the text to be centered on the space.
-
-#### Parameters
-
--   `index` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the characters to calculate the CSS `left` parameter
--   `totalWidth` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** total width of the text to render
--   `partialWidths` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>** array with the width of each character sorted by index position.
 
 ### measureText
 
