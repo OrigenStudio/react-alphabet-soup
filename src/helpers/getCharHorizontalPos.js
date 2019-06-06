@@ -4,10 +4,10 @@
  * Currently the makes the text to be centered on the space.
  * @param {number} index index of the characters to calculate the CSS `left` parameter
  * @param {number} totalWidth total width of the text to render
- * @param {Array<number>} partialWidth array with the width of each character sorted by index position.
+ * @param {Array<number>} partialWidths array with the width of each character sorted by index position.
  * @returns {left:string} returns the calculated `left` parameter.
  */
-const getCharYPos = (
+const getCharHorizontalPos = (
   index: number,
   totalWidth: number,
   partialWidths: Array<number>,
@@ -24,4 +24,4 @@ const getCharYPos = (
   };
 };
 
-export default getCharYPos;
+export default getCharHorizontalPos;

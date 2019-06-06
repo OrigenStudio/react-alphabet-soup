@@ -32,8 +32,8 @@ type State = {};
  * @param {string} text text to render
  * @param {number} [width=100] width of the space in pixels
  * @param {number} [height=100] height of the space in pixels
- * @param {string} [fontSize='20px'] fontSize of the text when the user hovers it.
- * @param {number} [lineHeight=1.3] lineHeight of the text when the user hovers it.
+ * @param {string} [fontSize='20px'] fontSize of the text when tidy.
+ * @param {number} [lineHeight=1.3] lineHeight of the text when tidy.
  * @param {string} [fontFamily='Georgia'] fontFamily of the text.
  * @param {string} [transitionStyle='constant'] style of the transition animation. Values: 'constant' | 'progressive' | 'random'.
  * @param {string} [transitionSpeedMultiplier=1] speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that.
@@ -46,6 +46,8 @@ type State = {};
  * @param {number} [costFunctionYWeight=1] weight applied to Y in the sorting cost function if sorting='costFunction'.
  * @param {string} [wrapperClassName=''] class name of the wrapper component.
  * @param {string} [charactersClassName=''] class name of the characters. It will be applied to all the characters.
+ * @param {boolean} [untidyOnHover=false] reverses the behaviour. The text is tidy by default and gets untidy when hover
+ * @param {boolean} [vertical=false] when true, the tidied text renders in vertical.
 
  * @returns renders the React component
  */
@@ -65,10 +67,6 @@ class AlphabetSoup extends React.Component<Props, State> {
       wrapperClassName,
       charactersClassName,
     } = this.props;
-
-    // console.log('====================================');
-    // console.log('Render', this.props);
-    // console.log('====================================');
 
     return (
       <div
@@ -104,6 +102,8 @@ export type EnhancedProps = {
   lineHeight?: number,
   transitionStyle?: 'constant' | 'progressive' | 'random',
   transitionSpeedMultiplier?: number,
+  untidyOnHover?: boolean,
+  vertical?: boolean,
 };
 
 const enhancer: HOC<Props, EnhancedProps> = compose(
@@ -142,10 +142,9 @@ const enhancer: HOC<Props, EnhancedProps> = compose(
       transitionStyle,
       transitionSpeedMultiplier,
       charCenters,
+      untidyOnHover,
+      vertical
     }) => {
-      // console.log('====================================');
-      // console.log('charCenters', charCenters);
-      // console.log('====================================');
       return {
         component: withStyles(
           createStyles(text, {
@@ -157,6 +156,8 @@ const enhancer: HOC<Props, EnhancedProps> = compose(
             transitionStyle,
             transitionSpeedMultiplier,
             charCenters,
+            untidyOnHover,
+            vertical
           }),
         )(AlphabetSoup),
       };
