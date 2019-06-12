@@ -53,7 +53,7 @@ type State = {};
  * @returns renders the React component
  */
 class AlphabetSoup extends React.Component<Props, State> {
-  defaultProps = {
+  static defaultProps = {
     fontFamily: DEFAULT_FONT_FAMILY,
     fontSize: DEFAULT_FONT_SIZE,
     lineHeight: DEFAULT_LINE_HEIGHT,
