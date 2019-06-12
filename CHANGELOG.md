@@ -1,3 +1,7 @@
+## [0.0.6](https://github.com/OrigenStudio/react-alphabet-soup/compare/v0.0.5...v0.0.6) (2019-06-12)
+
+
+
 ## [0.0.5](https://github.com/OrigenStudio/react-alphabet-soup/compare/v0.0.4...v0.0.5) (2019-06-06)
 
 
