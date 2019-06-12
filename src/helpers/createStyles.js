@@ -56,15 +56,35 @@ const generateTransition = (
 ): string => {
   switch (type) {
     case TRANSITION_CONSTANT:
-      return `all ${1 * speedMultiplier}s ${transitionTimingFunction}`;
+      return `transform ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, top ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, left ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, font-size ${1 *
+        speedMultiplier}s ${transitionTimingFunction} `;
     case TRANSITION_PROGRESSIVE:
-      return `all ${(1 + 0.15 * index) *
-        speedMultiplier}s ${transitionTimingFunction}`;
+      return `transform ${(1 + 0.15 * index) *
+        speedMultiplier}ss ${transitionTimingFunction}, top ${(1 +
+        0.15 * index) *
+        speedMultiplier}ss ${transitionTimingFunction}, left ${(1 +
+        0.15 * index) *
+        speedMultiplier}ss ${transitionTimingFunction}, font-size ${(1 +
+        0.15 * index) *
+        speedMultiplier}ss ${transitionTimingFunction} `;
     case TRANSITION_RANDOM:
-      return `all ${(1 + Math.random()) *
-        speedMultiplier}s ${transitionTimingFunction}`;
+      return `transform ${(1 + Math.random()) *
+        speedMultiplier}s ${transitionTimingFunction}, top ${(1 +
+        Math.random()) *
+        speedMultiplier}s ${transitionTimingFunction}, left ${(1 +
+        Math.random()) *
+        speedMultiplier}s ${transitionTimingFunction}, font-size ${(1 +
+        Math.random()) *
+        speedMultiplier}s ${transitionTimingFunction} `;
     default:
-      return `all ${1 * speedMultiplier}s ${transitionTimingFunction} `;
+      return `transform ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, top ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, left ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, font-size ${1 *
+        speedMultiplier}s ${transitionTimingFunction} `;
   }
 };
 
