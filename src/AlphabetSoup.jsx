@@ -37,6 +37,7 @@ type State = {};
  * @param {string} [fontFamily='Georgia'] fontFamily of the text.
  * @param {string} [transitionStyle='constant'] style of the transition animation. Values: 'constant' | 'progressive' | 'random'.
  * @param {string} [transitionSpeedMultiplier=1] speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that.
+ * @param {string} [transitionTimingFunction='ease'] is the transition timing function used on CSS transition. e.g. ease, ease-in, cubic-bezier(1, 0.24, 0.25, 1), ...
  * @param {number} [maxIterations=20] maximum number of iterations that the Lloyd's relaxation will run through.
  * More iterations mean a more optimal solution, however it can take a lot more time. Less iteration generate less optimal solutions.
  * @param {number} [acceptableError=1e-6] error that if achieved between iterations the relaxation process will stop, even if the iterations are not completed.
@@ -52,7 +53,7 @@ type State = {};
  * @returns renders the React component
  */
 class AlphabetSoup extends React.Component<Props, State> {
-  defaultProps = {
+  static defaultProps = {
     fontFamily: DEFAULT_FONT_FAMILY,
     fontSize: DEFAULT_FONT_SIZE,
     lineHeight: DEFAULT_LINE_HEIGHT,
@@ -102,6 +103,7 @@ export type EnhancedProps = {
   lineHeight?: number,
   transitionStyle?: 'constant' | 'progressive' | 'random',
   transitionSpeedMultiplier?: number,
+  transitionTimingFunction?: string,
   untidyOnHover?: boolean,
   vertical?: boolean,
 };
@@ -141,9 +143,10 @@ const enhancer: HOC<Props, EnhancedProps> = compose(
       fontFamily,
       transitionStyle,
       transitionSpeedMultiplier,
+      transitionTimingFunction,
       charCenters,
       untidyOnHover,
-      vertical
+      vertical,
     }) => {
       return {
         component: withStyles(
@@ -155,9 +158,10 @@ const enhancer: HOC<Props, EnhancedProps> = compose(
             fontFamily,
             transitionStyle,
             transitionSpeedMultiplier,
+            transitionTimingFunction,
             charCenters,
             untidyOnHover,
-            vertical
+            vertical,
           }),
         )(AlphabetSoup),
       };

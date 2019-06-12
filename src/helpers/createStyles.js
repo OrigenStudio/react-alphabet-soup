@@ -13,6 +13,7 @@ import {
   DEFAULT_TRANSITION_SPEED_MULTIPLIER,
   DEFAULT_UNTIDY_ON_HOVER,
   DEFAULT_VERTICAL,
+  DEFAULT_TRANSITION_TIMING_FUNCTION,
 } from '../defaultConstants';
 
 export const TRANSITION_CONSTANT = 'constant';
@@ -27,6 +28,7 @@ export type Options = {
   fontFamily?: string,
   transitionStyle?: 'constant' | 'progressive' | 'random',
   transitionSpeedMultiplier?: number,
+  transitionTimingFunction?: string,
   charCenters?: Array<{ x: number, y: number }>,
   untidyOnHover?: boolean,
   vertical?: boolean,
@@ -40,6 +42,7 @@ export const defaultOptions = {
   fontFamily: DEFAULT_FONT_FAMILY,
   transitionStyle: DEFAULT_TRANSITION_STYLE,
   transitionSpeedMultiplier: DEFAULT_TRANSITION_SPEED_MULTIPLIER,
+  transitionTimingFunction: DEFAULT_TRANSITION_TIMING_FUNCTION,
   charCenters: undefined,
   untidyOnHover: DEFAULT_UNTIDY_ON_HOVER,
   vertical: DEFAULT_VERTICAL,
@@ -48,17 +51,40 @@ export const defaultOptions = {
 const generateTransition = (
   type: string,
   speedMultiplier: number,
+  transitionTimingFunction: string,
   index?: number = 0, // required for progressive
 ): string => {
   switch (type) {
     case TRANSITION_CONSTANT:
-      return `all ${1 * speedMultiplier}s`;
+      return `transform ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, top ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, left ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, font-size ${1 *
+        speedMultiplier}s ${transitionTimingFunction} `;
     case TRANSITION_PROGRESSIVE:
-      return `all ${(1 + 0.15 * index) * speedMultiplier}s`;
+      return `transform ${(1 + 0.15 * index) *
+        speedMultiplier}ss ${transitionTimingFunction}, top ${(1 +
+        0.15 * index) *
+        speedMultiplier}ss ${transitionTimingFunction}, left ${(1 +
+        0.15 * index) *
+        speedMultiplier}ss ${transitionTimingFunction}, font-size ${(1 +
+        0.15 * index) *
+        speedMultiplier}ss ${transitionTimingFunction} `;
     case TRANSITION_RANDOM:
-      return `all ${(1 + Math.random()) * speedMultiplier}s`;
+      return `transform ${(1 + Math.random()) *
+        speedMultiplier}s ${transitionTimingFunction}, top ${(1 +
+        Math.random()) *
+        speedMultiplier}s ${transitionTimingFunction}, left ${(1 +
+        Math.random()) *
+        speedMultiplier}s ${transitionTimingFunction}, font-size ${(1 +
+        Math.random()) *
+        speedMultiplier}s ${transitionTimingFunction} `;
     default:
-      return 'all 1s';
+      return `transform ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, top ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, left ${1 *
+        speedMultiplier}s ${transitionTimingFunction}, font-size ${1 *
+        speedMultiplier}s ${transitionTimingFunction} `;
   }
 };
 
@@ -72,6 +98,7 @@ const generateTransition = (
  * @param {string} [options.fontFamily='Georgia'] fontFamily of the text.
  * @param {string} [options.transitionStyle='constant'] style of the transition animation. Values: 'constant' | 'progressive' | 'random'.
  * @param {string} [options.transitionSpeedMultiplier=1] speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that.
+ * @param {string} [transitionTimingFunction='ease'] is the transition timing function used on CSS transition. e.g. ease, ease-in, cubic-bezier(1, 0.24, 0.25, 1), ...
  * @param {boolean} [options.untidyOnHover=false] when true the behaviour is the opposite.
  * @param {boolean} [options.vertical=false] when true, the tidied text renders in vertical.
  * @param {Array<{ x: number, y: number }>} [options.charCenters=undefined] position of the characters before the user hovers them.
@@ -90,6 +117,7 @@ const createStyles = (
     fontFamily,
     transitionStyle,
     transitionSpeedMultiplier,
+    transitionTimingFunction,
     charCenters,
     untidyOnHover,
     vertical,
@@ -115,7 +143,12 @@ const createStyles = (
 
   const charsHorizontalStyle = index => ({
     position: 'absolute',
-    transition: `all 1s`,
+    transition: generateTransition(
+      transitionStyle,
+      transitionSpeedMultiplier,
+      transitionTimingFunction,
+      index,
+    ),
     top: '50%',
     transform: `rotate(0deg)`,
     fontSize,
@@ -124,7 +157,12 @@ const createStyles = (
 
   const charsVerticalStyle = index => ({
     position: 'absolute',
-    transition: `all 1s`,
+    transition: generateTransition(
+      transitionStyle,
+      transitionSpeedMultiplier,
+      transitionTimingFunction,
+      index,
+    ),
     transform: `rotate(0deg)`,
     fontSize,
     ...getCharVerticalPos(index, textHeight, textCharHeights, textCharWidths),
@@ -135,6 +173,7 @@ const createStyles = (
     transition: generateTransition(
       transitionStyle,
       transitionSpeedMultiplier,
+      transitionTimingFunction,
       index,
     ),
     left: `${(charCenters[index].x / width) * 100}%`,
