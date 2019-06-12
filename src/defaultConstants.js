@@ -13,3 +13,4 @@ export const DEFAULT_TRANSITION_STYLE = 'constant';
 export const DEFAULT_TRANSITION_SPEED_MULTIPLIER = 1;
 export const DEFAULT_UNTIDY_ON_HOVER = false;
 export const DEFAULT_VERTICAL = false;
+export const DEFAULT_TRANSITION_TIMING_FUNCTION = 'ease';
