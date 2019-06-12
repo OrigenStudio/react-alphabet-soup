@@ -55,6 +55,7 @@ This component renders and animates the text as an Alphabet Soup
 -   `fontFamily` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** fontFamily of the text. (optional, default `'Georgia'`)
 -   `transitionStyle` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** style of the transition animation. Values: 'constant' | 'progressive' | 'random'. (optional, default `'constant'`)
 -   `transitionSpeedMultiplier` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** speed multiplier for the transition. Default transitions take 1s. The multiplier can increase and decrease that. (optional, default `1`)
+-   `transitionTimingFunction` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** is the transition timing function used on CSS transition. e.g. ease, ease-in, cubic-bezier(1,1,1), ... (optional, default `'ease'`)
 -   `maxIterations` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** maximum number of iterations that the Lloyd's relaxation will run through.
     More iterations mean a more optimal solution, however it can take a lot more time. Less iteration generate less optimal solutions. (optional, default `20`)
 -   `acceptableError` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** error that if achieved between iterations the relaxation process will stop, even if the iterations are not completed.
@@ -96,6 +97,7 @@ Generates the styles for the wrapper and each of the text characters for the ani
     -   `options.untidyOnHover` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** when true the behaviour is the opposite. (optional, default `false`)
     -   `options.vertical` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** when true, the tidied text renders in vertical. (optional, default `false`)
     -   `options.charCenters` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;{x: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number), y: [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)}>** position of the characters before the user hovers them. (optional, default `undefined`)
+-   `transitionTimingFunction` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** is the transition timing function used on CSS transition. e.g. ease, ease-in, cubic-bezier(1,1,1), ... (optional, default `'ease'`)
 
 Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
 
