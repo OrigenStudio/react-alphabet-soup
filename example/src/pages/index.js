@@ -66,6 +66,38 @@ const IndexPage = () => (
       </div>
     </div>
     <Typography variant="h6">
+      Sorting: 'costFunction' | TransitionStyle: 'constant' |
+      TransitionTimingFunction: 'cubic-bezier(1, 0.24, 0.25, 1)' |
+      TransitionSpeedMultiplier: 0.5
+    </Typography>
+    <div style={{ width: `100%`, height: "500px", marginBottom: `1.45rem` }}>
+      <AlphabetSoupWithDimensions
+        text="Hello, world!"
+        fontSize="24px"
+        sorting="costFunction"
+        costFunctionYWeight={3}
+        transitionStyle="constant"
+        transitionSpeedMultiplier={0.5}
+        transitionTimingFunction="cubic-bezier(1, 0.24, 0.25, 1)"
+      />
+    </div>
+    <Typography variant="h6">
+      Sorting: 'costFunction' | TransitionStyle: 'progressive' |
+      TransitionTimingFunction: 'cubic-bezier(1, 0.24, 0.25, 1)' |
+      TransitionSpeedMultiplier: 0.4
+    </Typography>
+    <div style={{ width: `100%`, height: "500px", marginBottom: `1.45rem` }}>
+      <AlphabetSoupWithDimensions
+        text="Hello, world!"
+        fontSize="24px"
+        sorting="costFunction"
+        costFunctionYWeight={3}
+        transitionStyle="progressive"
+        transitionSpeedMultiplier={0.4}
+        transitionTimingFunction="cubic-bezier(1, 0.24, 0.25, 1)"
+      />
+    </div>
+    <Typography variant="h6">
       Sorting: 'sortByY' | TransitionStyle: 'constant' | untidyOnHover: true |
       vertical: true
     </Typography>
@@ -148,6 +180,7 @@ const IndexPage = () => (
         sorting="costFunction"
         costFunctionYWeight={3}
         transitionStyle="random"
+        transitionSpeedMultiplier={0.5}
       />
     </div>
     <Typography variant="h6">
@@ -159,6 +192,7 @@ const IndexPage = () => (
         fontSize="24px"
         sorting="sortByX"
         transitionStyle="random"
+        transitionSpeedMultiplier={0.5}
       />
     </div>
     <Typography variant="h6">
@@ -170,6 +204,7 @@ const IndexPage = () => (
         fontSize="24px"
         sorting="sortByY"
         transitionStyle="random"
+        transitionSpeedMultiplier={0.5}
       />
     </div>
   </Layout>
