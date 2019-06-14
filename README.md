@@ -41,12 +41,11 @@ npm install --save react-alphabet-soup || yarn add react-alphabet-soup
 
 ### AlphabetSoup
 
-**Extends React.Component**
-
 This component renders and animates the text as an Alphabet Soup
 
 #### Parameters
 
+-   `props` **Props** 
 -   `text` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** text to render
 -   `width` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** width of the space in pixels (optional, default `100`)
 -   `height` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** height of the space in pixels (optional, default `100`)
