@@ -25,7 +25,6 @@ type Props = {
   wrapperClassName?: string,
   charactersClassName?: string,
 };
-type State = {};
 
 /**
  * This component renders and animates the text as an Alphabet Soup
@@ -52,49 +51,40 @@ type State = {};
 
  * @returns renders the React component
  */
-class AlphabetSoup extends React.Component<Props, State> {
-  static defaultProps = {
-    fontFamily: DEFAULT_FONT_FAMILY,
-    fontSize: DEFAULT_FONT_SIZE,
-    lineHeight: DEFAULT_LINE_HEIGHT,
-    wrapperClassName: undefined,
-    charactersClassName: undefined,
-  };
 
-  render() {
-    const {
-      classes = {},
-      text,
-      wrapperClassName,
-      charactersClassName,
-    } = this.props;
-
-    return (
-      <div
-        style={{ width: '100%', height: '100%', position: 'relative' }}
-        className={classNames(
-          wrapperClassName ? [wrapperClassName] : null,
-          classes.wrapper,
-        )}
-      >
-        {text.split('').map((char, index) => {
-          return (
-            <div
-              className={classNames(
-                charactersClassName ? [charactersClassName] : null,
-                classes[`char-${index}`],
-              )}
-              key={`${char}-${index}`}
-            >
-              {char}
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-}
-
+const AlphabetSoup = (props: Props) => {
+  const { classes = {}, text, wrapperClassName, charactersClassName } = props;
+  return (
+    <div
+      style={{ width: '100%', height: '100%', position: 'relative' }}
+      className={classNames(
+        wrapperClassName ? [wrapperClassName] : null,
+        classes.wrapper,
+      )}
+    >
+      {text.split('').map((char, index) => {
+        return (
+          <div
+            className={classNames(
+              charactersClassName ? [charactersClassName] : null,
+              classes[`char-${index}`],
+            )}
+            key={`${char}-${index}`}
+          >
+            {char}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+AlphabetSoup.defaultProps = {
+  fontFamily: DEFAULT_FONT_FAMILY,
+  fontSize: DEFAULT_FONT_SIZE,
+  lineHeight: DEFAULT_LINE_HEIGHT,
+  wrapperClassName: undefined,
+  charactersClassName: undefined,
+};
 export type EnhancedProps = {
   ...getCentersArguments,
   text: string,
