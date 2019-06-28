@@ -3,6 +3,7 @@ import * as React from 'react';
 import compose from 'recompose/compose';
 import withPropsOnChange from 'recompose/withPropsOnChange';
 import lifeCycle from 'recompose/lifecycle';
+import branch from 'recompose/branch';
 import componentFromProp from 'recompose/componentFromProp';
 import withStyles from '@material-ui/core/styles/withStyles';
 import classNames from 'classnames';
@@ -14,6 +15,8 @@ import {
   DEFAULT_FONT_SIZE,
   DEFAULT_FONT_FAMILY,
   DEFAULT_LINE_HEIGHT,
+  DEFAULT_WIDTH,
+  DEFAULT_HEIGHT,
 } from './defaultConstants';
 
 type Props = {
@@ -99,6 +102,20 @@ export type EnhancedProps = {
 };
 
 const enhancer: HOC<Props, EnhancedProps> = compose(
+  branch(
+    () => {
+      return typeof document === 'undefined';
+    },
+    () => () => <div />,
+  ),
+  withPropsOnChange(['width', 'height'], ({ width, height }) => {
+    // If width or height are 0 or negative the function will fallback to calculate the points for a 100x100 space
+    if (width <= 0 || height <= 0) {
+      width = DEFAULT_WIDTH;
+      height = DEFAULT_HEIGHT;
+    }
+    return { width, height };
+  }),
   lifeCycle({
     componentDidMount() {
       const {

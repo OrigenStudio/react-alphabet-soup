@@ -1,6 +1,6 @@
 import React from "react"
 import Typography from "@material-ui/core/Typography"
-import { AlphabetSoupWithDimensions } from "react-alphabet-soup"
+import AlphabetSoup, { AlphabetSoupWithDimensions } from "react-alphabet-soup"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -21,7 +21,7 @@ const IndexPage = () => (
       Sorting: 'none' | TransitionStyle='constant'
     </Typography>
     <div style={{ width: `100%`, height: "500px", marginBottom: `1.45rem` }}>
-      <AlphabetSoupWithDimensions
+      <AlphabetSoup
         text="Hello, world!"
         fontSize="24px"
         sorting="none"
