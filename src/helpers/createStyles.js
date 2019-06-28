@@ -63,13 +63,13 @@ const generateTransition = (
         speedMultiplier}s ${transitionTimingFunction} `;
     case TRANSITION_PROGRESSIVE:
       return `transform ${(1 + 0.15 * index) *
-        speedMultiplier}ss ${transitionTimingFunction}, top ${(1 +
+        speedMultiplier}s ${transitionTimingFunction}, top ${(1 +
         0.15 * index) *
-        speedMultiplier}ss ${transitionTimingFunction}, left ${(1 +
+        speedMultiplier}s ${transitionTimingFunction}, left ${(1 +
         0.15 * index) *
-        speedMultiplier}ss ${transitionTimingFunction}, font-size ${(1 +
+        speedMultiplier}s ${transitionTimingFunction}, font-size ${(1 +
         0.15 * index) *
-        speedMultiplier}ss ${transitionTimingFunction} `;
+        speedMultiplier}s ${transitionTimingFunction} `;
     case TRANSITION_RANDOM:
       return `transform ${(1 + Math.random()) *
         speedMultiplier}s ${transitionTimingFunction}, top ${(1 +
