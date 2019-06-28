@@ -14,6 +14,8 @@ import {
   DEFAULT_FONT_SIZE,
   DEFAULT_FONT_FAMILY,
   DEFAULT_LINE_HEIGHT,
+  DEFAULT_WIDTH,
+  DEFAULT_HEIGHT,
 } from './defaultConstants';
 
 type Props = {
@@ -99,6 +101,14 @@ export type EnhancedProps = {
 };
 
 const enhancer: HOC<Props, EnhancedProps> = compose(
+  withPropsOnChange(['width', 'height'], ({ width, height }) => {
+    // If width or height are 0 or negative the function will fallback to calculate the points for a 100x100 space
+    if (width <= 0 || height <= 0) {
+      width = DEFAULT_WIDTH;
+      height = DEFAULT_HEIGHT;
+    }
+    return { width, height };
+  }),
   lifeCycle({
     componentDidMount() {
       const {
